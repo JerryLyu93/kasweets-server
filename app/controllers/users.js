@@ -24,7 +24,8 @@ function createUser (user) {
           var newUser = new Users()
           newUser.telephone = user.telephone
           newUser.password = user.password
-          resolve()
+          newUser.save()
+          resolve(user)
         }
       })
   })
