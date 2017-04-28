@@ -1,0 +1,32 @@
+{
+  "name": "kasweets-server",
+  "version": "1.0.0",
+  "description": "a wechat web shop for kasweets",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pandaLv/kasweets-server.git"
+  },
+  "keywords": [
+    "wechat",
+    "webshop",
+    "node"
+  ],
+  "author": "pandaLv",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pandaLv/kasweets-server/issues"
+  },
+  "homepage": "https://github.com/pandaLv/kasweets-server#readme",
+  "dependencies": {
+    "axios": "^0.16.1",
+    "dotenv": "^4.0.0",
+    "express": "^4.15.2",
+    "mongoose": "^4.9.6",
+    "passport": "^0.3.2"
+  }
+}
