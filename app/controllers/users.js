@@ -1,6 +1,7 @@
 'use static';
 
-var Users = require('../models/users')
+const mongoose = require('mongoose');
+const Users = mongoose.model(User);
 
 /**
 * create user if this user not be created
@@ -30,6 +31,7 @@ function createUser (user) {
           var newUser = new Users()
           newUser.telephone = user.telephone
           newUser.password = user.password
+          newUser.name = user.name || `用户${user.telephone}`
           newUser.save()
           resolve(result)
         }
@@ -53,7 +55,18 @@ function getUser (telephone) {
       })
     }
     Users
-      .findOne({telephone: telephone}, {'_id': false, 'telephone': true, 'usable_credit': true, 'total_credit': true, 'rank': 'true', 'created': true, 'address': true})
+      .findOne({telephone: telephone}, {
+        '_id': false,
+        'telephone': true,
+        'usable_credit': true,
+        'total_credit': true,
+        'rank': 'true',
+        'created': true,
+        'address': true,
+        'order': true,
+        'birthday': true,
+        'name': true
+      })
       .exec(function (err, result) {
         if (err) {
           reject({

@@ -18,6 +18,8 @@ var UserSchema = new Schema({
   telephone: {type: String, require: true},
   hashed_password: {type: String, require: true},
   salt: { type: String, default: '' },
+  name: { type: String, default: ''},
+  order: {type: Array, default: []},
   address: {type: Array, default: []},
   current_address: Number,
   rank: {type: String, default: '1'},
@@ -107,4 +109,4 @@ UserSchema.pre('save', function (next) {
   }
 });
 
-module.exports = mongoose.model('User', UserSchema)
+mongoose.model('User', UserSchema)
