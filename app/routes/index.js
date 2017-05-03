@@ -1,6 +1,7 @@
 'use strict';
 
 var path = process.cwd();
+var usersController = require('../controllers/users')
 
 module.exports = function (app) {
   app.route('/')
@@ -8,8 +9,21 @@ module.exports = function (app) {
       res.send('Hello World')
     });
 
-  app.route('/createUser')
+  app.route('/createuser')
     .get(function (req, res) {
-      res.send('')
+      usersController.createUser(req.query).then(result => {
+        res.send(result)
+      }).catch(err => {
+        res.send(err.message)
+      })
+    })
+
+  app.route('/getuser')
+    .get(function (req, res) {
+      usersController.getUser(req.query.telephone).then(result => {
+        res.send(result)
+      }).catch(err => {
+        res.send(err.message)
+      })
     })
 }

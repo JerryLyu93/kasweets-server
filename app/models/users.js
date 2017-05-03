@@ -14,7 +14,7 @@ const validatePresenceOf = value => value && value.length;
  * User Schema
  */
 
-var User = new Schema({
+var UserSchema = new Schema({
   telephone: {type: String, require: true},
   hashed_password: {type: String, require: true},
   salt: { type: String, default: '' },
@@ -100,11 +100,11 @@ UserSchema.methods = {
 UserSchema.pre('save', function (next) {
   if (!this.isNew) return next();
 
-  if (!validatePresenceOf(this.password) && !this.skipValidation()) {
+  if (!validatePresenceOf(this.password)) {
     next(new Error('Invalid password'));
   } else {
     next();
   }
 });
 
-module.exports = mongoose.model('User', User)
+module.exports = mongoose.model('User', UserSchema)
