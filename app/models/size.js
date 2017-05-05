@@ -8,7 +8,10 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
-var SizeSchema = new Schema({});
+var SizeSchema = new Schema({
+  name: {type: String},
+  description: {type: String}
+});
 
 SizeSchema.methods = {
  /**
