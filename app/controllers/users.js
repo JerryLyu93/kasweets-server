@@ -1,7 +1,7 @@
 'use static';
 
 const mongoose = require('mongoose');
-const Users = mongoose.model(User);
+const User = mongoose.model('User');
 
 /**
 * create user if this user not be created
@@ -17,7 +17,7 @@ function createUser (user) {
         message: 'user\'s telephone & password is necessary'
       })
     }
-    Users
+    User
       .findOne({'telephone': user.telephone}, {'_id': false})
       .exec(function (err, result) {
         if (err) reject(err)
@@ -28,7 +28,7 @@ function createUser (user) {
             message: 'this user is already exist'
           })
         } else {
-          var newUser = new Users()
+          var newUser = new User()
           newUser.telephone = user.telephone
           newUser.password = user.password
           newUser.name = user.name || `用户${user.telephone}`
@@ -54,7 +54,7 @@ function getUser (telephone) {
         message: `telephone cound not be null`
       })
     }
-    Users
+    User
       .findOne({telephone: telephone}, {
         '_id': false,
         'telephone': true,
