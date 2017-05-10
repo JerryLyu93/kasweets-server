@@ -16,11 +16,13 @@ var GoodsSchema = new Schema({
   is_sale: {type: Boolean, default: false},
   summary: {type: String},
   description: {type: String},
+  type: {type: String},
   taste: {type: String},
   material: {type: String},
   images: {type: Array},
   is_point: {type: Boolean, default: false},
-  alert: {type: String, default: ''}
+  alert: {type: String, default: ''},
+  updated: {type: Date, default: new Date().toLocaleString()}
 });
 
 GoodsSchema.methods = {

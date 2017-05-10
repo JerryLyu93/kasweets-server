@@ -25,7 +25,7 @@ var UserSchema = new Schema({
   rank: {type: String, default: '1'},
   total_credit: {type: Number, default: 0},
   usable_credit: {type: Number, default: 0},
-  created: { type: Date, default: Date.now },
+  updated: { type: Date, default: new Date().toLocaleString() },
   birthday: { type: Date }
 });
 

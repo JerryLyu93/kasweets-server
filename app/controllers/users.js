@@ -9,7 +9,7 @@ const User = mongoose.model('User');
 *
 * @return {Promise}
 */
-function createUser (user) {
+function create (user) {
   return new Promise((resolve, reject) => {
     if (!user || !user.telephone || !user.password) {
       reject({
@@ -46,7 +46,7 @@ function createUser (user) {
 * @return {Promise}
 */
 
-function getUser (telephone) {
+function load (telephone) {
   return new Promise((resolve, reject) => {
     if (!telephone) {
       reject({
@@ -88,5 +88,5 @@ function getUser (telephone) {
   })
 }
 
-exports.createUser = createUser
-exports.getUser = getUser
+exports.create = create
+exports.load = load

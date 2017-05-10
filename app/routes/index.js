@@ -11,7 +11,7 @@ module.exports = function (app) {
 
   app.route('/createuser')
     .get(function (req, res) {
-      usersController.createUser(req.query).then(result => {
+      usersController.create(req.query).then(result => {
         res.send(result)
       }).catch(err => {
         res.send(err.message)
@@ -20,7 +20,7 @@ module.exports = function (app) {
 
   app.route('/getuser')
     .get(function (req, res) {
-      usersController.getUser(req.query.telephone).then(result => {
+      usersController.load(req.query.telephone).then(result => {
         res.send(result)
       }).catch(err => {
         res.send(err.message)

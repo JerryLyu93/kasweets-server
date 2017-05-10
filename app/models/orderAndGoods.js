@@ -8,7 +8,7 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
-var OrderAndShopSchema = new Schema({
+var OrderAndGoodsSchema = new Schema({
   'order_id': {type: Number},
   'goods_id': {type: Number},
   'count': {type: Number},
@@ -17,7 +17,7 @@ var OrderAndShopSchema = new Schema({
   'discount_id': {type: String}
 });
 
-OrderAndShopSchema.methods = {
+OrderAndGoodsSchema.methods = {
  /**
   * Schema Methods
   *
@@ -28,4 +28,4 @@ OrderAndShopSchema.methods = {
   */
 }
 
-mongoose.model('OrderAndShop', OrderAndShopSchema)
+mongoose.model('OrderAndGoods', OrderAndGoodsSchema)
