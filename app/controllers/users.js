@@ -1,91 +1,86 @@
 'use static';
 
+const { wrap: async } = require('co');
 const mongoose = require('mongoose');
 const User = mongoose.model('User');
 
 /**
 * create user if this user not be created
-* @param {Object} user user's data
-*
-* @return {Promise}
 */
-function create (user) {
-  return new Promise((resolve, reject) => {
-    if (!user || !user.telephone || !user.password) {
-      reject({
-        code: 422,
-        message: 'user\'s telephone & password is necessary'
-      })
-    }
-    User
-      .findOne({'telephone': user.telephone}, {'_id': false})
-      .exec(function (err, result) {
-        if (err) reject(err)
+var create = function (req, res) {
+  const user = req.body
+  if (!user || !user.telephone || !user.password) {
+    return res.send({
+      code: 422,
+      message: 'user\'s telephone & password is necessary'
+    })
+  }
+  User
+    .findOne({'telephone': user.telephone}, {'_id': false})
+    .exec(async(function* (err, result) {
+      if (err) return res.send(err)
 
-        if (result) {
-          reject({
-            code: 403,
-            message: 'this user is already exist'
-          })
-        } else {
-          var newUser = new User()
-          newUser.telephone = user.telephone
-          newUser.password = user.password
-          newUser.name = user.name || `用户${user.telephone}`
-          newUser.save()
-          resolve(result)
-        }
-      })
-  })
+      if (result) {
+        res.send({
+          code: 403,
+          message: 'this telephone is already exist'
+        })
+      } else {
+        var newUser = new User()
+        newUser.telephone = user.telephone
+        newUser.password = user.password
+        newUser.name = user.name || `用户${user.telephone}`
+
+        var result = yield newUser.save()
+        res.send(result)
+      }
+    }))
 }
 
 /**
 * use telephone number to get user's data
-* @param {Object} user user's data
-*
-* @return {Promise}
 */
 
-function load (telephone) {
-  return new Promise((resolve, reject) => {
-    if (!telephone) {
-      reject({
-        code: 422,
-        message: `telephone cound not be null`
-      })
-    }
-    User
-      .findOne({telephone: telephone}, {
-        '_id': false,
-        'telephone': true,
-        'usable_credit': true,
-        'total_credit': true,
-        'rank': 'true',
-        'created': true,
-        'address': true,
-        'order': true,
-        'birthday': true,
-        'name': true
-      })
-      .exec(function (err, result) {
-        if (err) {
-          reject({
-            code: 500,
-            message: err
-          })
-        }
+function load (req, res) {
+  const telephone = req.query.telephone
 
-        if (result) {
-          resolve(result)
-        } else {
-          reject({
-            code: 403,
-            message: 'this user isn\'s exist'
-          })
-        }
+  if (!telephone) {
+    return res.send({
+      code: 422,
+      message: `telephone cound not be null`
+    })
+  }
+  User
+    .findOne({telephone: telephone}, {
+      '_id': false,
+      'telephone': true,
+      'usable_credit': true,
+      'total_credit': true,
+      'rank': 'true',
+      'created': true,
+      'address': true,
+      'order': true,
+      'birthday': true,
+      'name': true
+    })
+    .exec(function (err, result) {
+      if (err) {
+        return res.send({
+          code: 500,
+          message: err
+        })
       }
-    )
-  })
+
+      if (result) {
+        res.send(result)
+      } else {
+        res.send({
+          code: 403,
+          message: 'this user isn\'s exist'
+        })
+      }
+    }
+  )
 }
 
 exports.create = create

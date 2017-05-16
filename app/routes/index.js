@@ -1,29 +1,19 @@
 'use strict';
 
-var path = process.cwd();
-var usersController = require('../controllers/users')
+const bodyParser = require('body-parser');
+const multer = require('multer');
+const upload = multer();
+
+const user = require('./user')
 
 module.exports = function (app) {
+  app.use(bodyParser.json())
+  app.use(bodyParser.urlencoded({extended: true}))
+
   app.route('/')
     .get(function (req, res) {
       res.send('Hello World')
     });
 
-  app.route('/createuser')
-    .get(function (req, res) {
-      usersController.create(req.query).then(result => {
-        res.send(result)
-      }).catch(err => {
-        res.send(err.message)
-      })
-    })
-
-  app.route('/getuser')
-    .get(function (req, res) {
-      usersController.load(req.query.telephone).then(result => {
-        res.send(result)
-      }).catch(err => {
-        res.send(err.message)
-      })
-    })
+  user(app)
 }
