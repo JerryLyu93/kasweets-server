@@ -8,8 +8,6 @@ const Goods = mongoose.model('Goods')
 * create goods
 */
 const create = co(function * (req, res) {
-  const id = req.query.id
-  Goods.findOne({})
 })
 
 const load = function (req, res) {
