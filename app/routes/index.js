@@ -41,3 +41,5 @@ module.exports = function (app) {
   user(app)
   goods(app)
 }
+
+console.log('wow!')
