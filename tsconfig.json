@@ -1,0 +1,14 @@
+{
+    // "include": [
+    //     "app/**/*.ts"
+    // ],
+    "compilerOptions": {
+        "baseUrl": "./app/ts_d_module",
+        "noImplicitAny": false,
+        "target": "es6",
+        "sourceMap": false,
+        "module": "commonjs",
+        "experimentalDecorators": false,
+        "allowJs": true
+    }
+}

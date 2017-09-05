@@ -8,4 +8,7 @@ module.exports = function (app) {
 
   app.route('/user/load')
     .get(user.load)
+  
+  app.route('/user/wxauth')
+    .post(user.wxauth)
 }
